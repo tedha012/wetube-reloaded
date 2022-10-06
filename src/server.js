@@ -4,16 +4,16 @@ const PORT =4000;
 
 const app = express();
 
+const goddipMiddleware = (req, res, next) => {
+    console.log(`Someone is going to: ${req.url}`);
+    next();
+}
+
 const handleHome = (req, res) => {
-    return res.end();
+    return res.end("I love middleware");
 }
 
-const handleLogin = (req, res) => {
-    return res.send ("Login here");
-}
-
-app.get("/", handleHome);
-app.get("/login", handleLogin);
+app.get("/", goddipMiddleware, handleHome);
 
 const handleListening = () => {
     console.log(`Server listenting on port http:localhost:${PORT}`);
