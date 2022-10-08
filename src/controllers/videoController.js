@@ -18,9 +18,19 @@ export const postEdit = (req, res) => {
   return res.redirect(`/videos/${id}`);
 };
 export const getUpload = (req, res) => {
-  return res.render("upload", { pageTitle: `Upload Video` });
+  return res.render("upload", { pageTitle: "Upload Video" });
 };
-export const postUpload = (req, res) => {
-  const { title } = req.body;
-  return res.redirect(`/`);
+export const postUpload = async (req, res) => {
+  const { title, description, hashtags } = req.body;
+  await Video.create({
+    title,
+    description,
+    createdAt: Date.now(),
+    hashtags: hashtags.split(",").map((word) => `#${word}`),
+    meta: {
+      views: 0,
+      rating: 0,
+    },
+  });
+  return res.redirect("/");
 };
