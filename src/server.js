@@ -21,8 +21,8 @@ app.use(express.urlencoded({ extended: true })); // form(post) value get!!!
 app.use(
   session({
     secret: "Hello",
-    resave: true,
-    saveUninitialized: true,
+    resave: false, // give cookies to only Logged in people
+    saveUninitialized: false,
     store: MongStore.create({
       mongoUrl: "mongodb://127.0.0.1:27017/wetube",
     }),
