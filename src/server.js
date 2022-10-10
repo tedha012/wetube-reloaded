@@ -20,11 +20,11 @@ app.use(express.urlencoded({ extended: true })); // form(post) value get!!!
 //session
 app.use(
   session({
-    secret: "Hello",
+    secret: process.env.COOKIE_SECRET,
     resave: false, // give cookies to only Logged in people
     saveUninitialized: false,
     store: MongStore.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/wetube",
+      mongoUrl: process.env.DB_URL,
     }),
   })
 );
