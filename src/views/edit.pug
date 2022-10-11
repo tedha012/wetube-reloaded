@@ -5,5 +5,5 @@ block content
     form(method="POST")
         input(value=video.title, type="text", name="title", placeholder="Video Title", required, maxlength=80)
         input(value=video.description, type="text", name="description", placeholder="Description", required, minlength=20)
-        input(value=video.hashtags.join(), type="text", name="hashtags", placeholder="Hashtags, sperated by comma.", required)
+        input(value=video.hashtags, type="text", name="hashtags", placeholder="Hashtags, sperated by comma.", required)
         input(type="submit", value="Save")
