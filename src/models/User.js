@@ -12,6 +12,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre("save", async function () {
+  // pre -> throw middleware
   this.password = await bcrypt.hash(this.password, 5);
 });
 
