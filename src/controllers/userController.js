@@ -228,7 +228,7 @@ export const postEdit = async (req, res) => {
   // const user = req.session.user.id;
   const {
     session: {
-      user: { _id }, // check!! who is loggedinUser
+      user: { _id, avatarUrl }, // check!! who is loggedinUser
     },
     body: { name, email, username, location },
     file,
@@ -238,6 +238,7 @@ export const postEdit = async (req, res) => {
   const updateUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: file ? file.path : avatarUrl,
       name,
       email,
       username,
