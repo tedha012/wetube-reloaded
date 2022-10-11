@@ -9,12 +9,12 @@ import {
   getEdit,
   postEdit,
 } from "../controllers/userController";
-import { portectorMiddleware, publicOnMiddleware } from "../middlewares";
+import { protectorMiddleware, publicOnMiddleware } from "../middlewares";
 
 const userRouter = express.Router();
 
-userRouter.get("/logout", portectorMiddleware, logout);
-userRouter.route("/edit").all(portectorMiddleware).get(getEdit).post(postEdit);
+userRouter.get("/logout", protectorMiddleware, logout);
+userRouter.route("/edit").all(protectorMiddleware).get(getEdit).post(postEdit);
 userRouter.get("/github/start", publicOnMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicOnMiddleware, finishGithubLogin);
 userRouter.get("/kakao/start", publicOnMiddleware, startKakaoLogin);
