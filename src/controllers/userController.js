@@ -1,6 +1,7 @@
 import User from "../models/User";
 import fetch from "cross-fetch";
 import bcrypt from "bcrypt";
+import Video from "../models/Video";
 
 export const getJoin = (req, res) => res.render("join", { pageTitle: "Join" });
 
@@ -37,10 +38,8 @@ export const postJoin = async (req, res) => {
     });
   }
 };
-
 export const getLogin = (req, res) =>
   res.render("login", { pageTitle: "Login" });
-
 export const postLogin = async (req, res) => {
   const { username, password } = req.body;
   const pageTitle = "Login";
@@ -62,7 +61,6 @@ export const postLogin = async (req, res) => {
   req.session.user = user;
   return res.redirect("/");
 };
-
 export const startGithubLogin = (req, res) => {
   const baseUrl = "https://github.com/login/oauth/authorize";
   const config = {
@@ -74,7 +72,6 @@ export const startGithubLogin = (req, res) => {
   const finalUrl = `${baseUrl}?${params}`;
   return res.redirect(finalUrl);
 };
-
 export const finishGithubLogin = async (req, res) => {
   const baseUrl = "https://github.com/login/oauth/access_token";
   const config = {
@@ -141,7 +138,6 @@ export const finishGithubLogin = async (req, res) => {
     return res.redirect("/login");
   }
 };
-
 export const startKakaoLogin = (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/authorize";
   console.log(req.params);
@@ -154,7 +150,6 @@ export const startKakaoLogin = (req, res) => {
   const finalUrl = `${baseUrl}?${params}`;
   return res.redirect(finalUrl);
 };
-
 export const finishKakaoLogin = async (req, res) => {
   const baseUrl = "https://kauth.kakao.com/oauth/token";
   const config = {
@@ -214,16 +209,13 @@ export const finishKakaoLogin = async (req, res) => {
     return res.redirect("/login");
   }
 };
-
 export const logout = (req, res) => {
   req.session.destroy();
   return res.redirect("/");
 };
-
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
-
 export const postEdit = async (req, res) => {
   // const user = req.session.user.id;
   const {
@@ -254,14 +246,12 @@ export const postEdit = async (req, res) => {
   req.session.user = updateUser;
   return res.redirect("/users/edit");
 };
-
 export const getChangePassword = (req, res) => {
   if (req.session.user.socialOnly === true) {
     return res.redirect("/");
   }
   return res.render("users/change-password", { pageTitle: "Change Password" });
 };
-
 export const postChangePassword = async (req, res) => {
   const {
     session: {
@@ -287,15 +277,17 @@ export const postChangePassword = async (req, res) => {
   await user.save(); // User.js save -> middleware hash
   return res.redirect("/users/logout");
 };
-
 export const see = async (req, res) => {
   const { id } = req.params;
   const user = await User.findById(id);
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not Found." });
   }
+  const videos = await Video.find({ owner: user._id });
+  // console.log(videos);
   return res.render("users/profile", {
     pageTitle: `${user.name} Profile`,
     user,
+    videos,
   });
 };
