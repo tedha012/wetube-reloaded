@@ -8,7 +8,7 @@ const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
 const timeline = document.getElementById("timeline");
 const fullScreenBtn = document.getElementById("fullScreen");
-fullScreenIcon = fullScreenBtn.querySelector("i");
+const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
 
@@ -44,16 +44,27 @@ const handleVolumeChange = (event) => {
   const {
     target: { value },
   } = event;
-  volumeValue = value;
-  video.volume = volumeValue;
-  if (video.volume === 0) {
-    video.muted = true;
-    muteBtn.innerText = "Unmute";
-  } else {
+  if (video.muted) {
     video.muted = false;
     muteBtn.innerText = "Mute";
   }
+  volumeValue = value;
+  video.volume = value;
 };
+// const handleVolumeChange = (event) => {
+//   const {
+//     target: { value },
+//   } = event;
+//   volumeValue = value;
+//   video.volume = volumeValue;
+//   if (video.volume === 0) {
+//     video.muted = true;
+//     muteBtn.innerText = "Unmute";
+//   } else {
+//     video.muted = false;
+//     muteBtn.innerText = "Mute";
+//   }
+// };
 
 const formatTime = (seconds) =>
   new Date(seconds * 1000).toISOString().substring(14, 19);
