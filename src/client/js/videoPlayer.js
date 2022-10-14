@@ -1,8 +1,8 @@
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
 const playBtnIcon = playBtn.querySelector("i");
-const muteBtn = document.getElementById("mute");
-const muteBtnIcon = muteBtn.querySelector("i");
+const volumeBtn = document.getElementById("volumeBtn");
+const volumeBtnIcon = volumeBtn.querySelector("i");
 const volumeRange = document.getElementById("volume");
 const currentTime = document.getElementById("currentTime");
 const totalTime = document.getElementById("totalTime");
@@ -28,16 +28,28 @@ const handlePlayClick = (event) => {
   playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
 };
 
-const handleMute = (event) => {
+const handlePlaySpaceBar = (event) => {
+  if (event.code === "Space") {
+    handlePlayClick();
+  }
+};
+
+const handleMuteClick = (event) => {
   if (video.muted) {
     video.muted = false;
   } else {
     video.muted = true;
   }
-  muteBtnIcon.classList = video.muted
+  volumeBtnIcon.classList = video.muted
     ? "fas fa-volume-mute"
     : "fas fa-volume-up";
   volumeRange.value = video.muted ? 0 : volumeValue;
+};
+
+const handleMuteM = (event) => {
+  if (event.keyCode === 77) {
+    handleMuteClick();
+  }
 };
 
 const handleVolumeChange = (event) => {
@@ -46,25 +58,11 @@ const handleVolumeChange = (event) => {
   } = event;
   if (video.muted) {
     video.muted = false;
-    muteBtn.innerText = "Mute";
+    volumeBtn.innerText = "Mute";
   }
   volumeValue = value;
   video.volume = value;
 };
-// const handleVolumeChange = (event) => {
-//   const {
-//     target: { value },
-//   } = event;
-//   volumeValue = value;
-//   video.volume = volumeValue;
-//   if (video.volume === 0) {
-//     video.muted = true;
-//     muteBtn.innerText = "Unmute";
-//   } else {
-//     video.muted = false;
-//     muteBtn.innerText = "Mute";
-//   }
-// };
 
 const formatTime = (seconds) =>
   new Date(seconds * 1000).toISOString().substring(14, 19);
@@ -117,7 +115,10 @@ const handleMouseLeave = () => {
 };
 
 playBtn.addEventListener("click", handlePlayClick);
-muteBtn.addEventListener("click", handleMute);
+video.addEventListener("click", handlePlayClick); // play and pause with click
+document.addEventListener("keydown", handlePlaySpaceBar); // play and pause with spacebar
+volumeBtn.addEventListener("click", handleMuteClick);
+document.addEventListener("keyup", handleMuteM); // mute with m
 volumeRange.addEventListener("input", handleVolumeChange);
 video.addEventListener("loadeddata", handleLoadedMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
