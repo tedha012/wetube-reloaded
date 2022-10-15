@@ -23,8 +23,7 @@ input[type="submit"] {
   }
 }
 
-input[type="submit"],
-.social__btn {
+input[type="submit"] {
   border-radius: 5px;
   padding: 12px 20px;
   background-color: white !important;
@@ -40,4 +39,14 @@ input[type="submit"],
     opacity: 0.5;
     pointer-events: none;
   }
+}
+
+.social__btn {
+  border-radius: 5px;
+  padding: 12px 20px;
+  background-color: white;
+  color: rgba($color: $red, $alpha: 1);
+  text-align: center;
+  cursor: pointer;
+  display: block;
 }

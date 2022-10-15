@@ -248,8 +248,7 @@ input[type=submit]::placeholder {
   color: rgba(255, 255, 255, 0.7);
 }
 
-input[type=submit],
-.social__btn {
+input[type=submit] {
   border-radius: 5px;
   padding: 12px 20px;
   background-color: white !important;
@@ -259,14 +258,22 @@ input[type=submit],
   display: block;
   border: none;
 }
-input[type=submit]:focus,
-.social__btn:focus {
+input[type=submit]:focus {
   outline: none;
 }
-input[type=submit]:disabled,
-.social__btn:disabled {
+input[type=submit]:disabled {
   opacity: 0.5;
   pointer-events: none;
+}
+
+.social__btn {
+  border-radius: 5px;
+  padding: 12px 20px;
+  background-color: white;
+  color: #ff1300;
+  text-align: center;
+  cursor: pointer;
+  display: block;
 }
 
 .social-login {
@@ -425,4 +432,32 @@ main {
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
+}
+
+@keyframes goAway {
+  from {
+    transform: none;
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+}
+.message {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  max-width: 200px;
+  padding: 10px 20px;
+  border-radius: 10000px;
+  text-align: center;
+  animation: goAway 0.5s ease-in-out forwards;
+  animation-delay: 5s;
+}
+.message.error {
+  background-color: tomato;
+  color: white;
 }
