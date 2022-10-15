@@ -64,13 +64,15 @@ export const postUpload = async (req, res) => {
     user: { _id },
   } = req.session;
   // const { path: fileUrl } = req.file;
-  const { path } = req.file;
+  const { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
+  console.log(video, thumb);
   try {
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl: `/${path}`,
+      fileUrl: `/${video[0].path}`,
+      thumbUrl: `/${thumb[0].destination}${thumb[0].filename}`,
       owner: _id, //sending whole information and mongoose handling
       hashtags: Video.formatHashtags(hashtags),
     });
