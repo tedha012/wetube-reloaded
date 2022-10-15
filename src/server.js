@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 
 app.use(logger);
 app.use(express.urlencoded({ extended: true })); // form(post) value get!!!
+app.use(express.json()); // comment fetch
 
 //session
 app.use(

@@ -1,3 +1,4 @@
+import { async } from "regenerator-runtime";
 import User from "../models/User";
 import Video from "../models/Video";
 
@@ -130,4 +131,10 @@ export const registerView = async (req, res) => {
   video.meta.views = video.meta.views + 1;
   await video.save();
   return res.sendStatus(200);
+};
+
+export const createComment = async (req, res) => {
+  console.log(req.body);
+  console.log(req.params);
+  return res.end();
 };
