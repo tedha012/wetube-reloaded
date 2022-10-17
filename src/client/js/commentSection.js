@@ -12,7 +12,7 @@ const addComment = (text, newCommentInfo) => {
   commentUserInfo.className = "comment__userInfo";
   const commentUserAvatar = document.createElement("img");
   commentUserAvatar.className = "comment__userAvatar";
-  commentUserAvatar.src = `/${newCommentInfo.ownerAvatar}`;
+  commentUserAvatar.src = `${newCommentInfo.ownerAvatar}`;
   const commentUsername = document.createElement("span");
   commentUsername.className = "comment__userName";
   commentUsername.innerText = newCommentInfo.ownerName;
