@@ -440,7 +440,7 @@ input[type=submit]:disabled {
 .video__comments {
   display: flex;
   flex-direction: column;
-  max-width: 320px;
+  max-width: 480px;
   width: 100%;
   margin: 0 auto;
   margin-top: 20px;
@@ -451,6 +451,33 @@ input[type=submit]:disabled {
   background-color: white;
   color: black;
   margin-bottom: 10px;
+}
+.video__comments .video__comment .comment__userInfo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.video__comments .video__comment .comment__userInfo .comment__userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+}
+.video__comments .video__comment .comment__userInfo .comment__userName {
+  margin-left: 16px;
+  font-size: 12px;
+  font-style: bold;
+}
+.video__comments .video__comment .comment__userInfo .comment__date {
+  margin-left: 8px;
+  font-size: 8px;
+}
+.video__comments .video__comment .comment__text {
+  font-size: 16px;
+  margin-left: 48px;
+}
+.video__comments .video__comment .delete__comment {
+  margin-left: 8px;
+  cursor: default;
 }
 
 a {

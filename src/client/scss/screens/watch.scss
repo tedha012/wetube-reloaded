@@ -1,35 +1,63 @@
 .video__data {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    .video__title {
-      font-size: 26px;
-      margin-bottom: 5px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  .video__title {
+    font-size: 26px;
+    margin-bottom: 5px;
+  }
+  .video__createdAt {
+    font-size: 12px;
+  }
+  .video__owner {
+    margin-bottom: 5px;
+    font-size: 14px;
+    a {
+      color: cornflowerblue;
+      text-decoration: underline;
     }
-    .video__createdAt {
-      font-size: 12px;
-    }
-    .video__owner {
-      margin-bottom: 5px;
-      font-size: 14px;
-      a {
-        color: cornflowerblue;
-        text-decoration: underline;
+  }
+}
+.video__comments {
+  display: flex;
+  flex-direction: column;
+  max-width: 480px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 20px;
+  .video__comment {
+    padding: 10px;
+    border-radius: 9999px;
+    background-color: white;
+    color: black;
+    margin-bottom: 10px;
+    .comment__userInfo {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .comment__userAvatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 100%;
+      }
+      .comment__userName {
+        margin-left: 16px;
+        font-size: 12px;
+        font-style: bold;
+      }
+      .comment__date {
+        margin-left: 8px;
+        font-size: 8px;
       }
     }
-  }
-  .video__comments {
-    display: flex;
-    flex-direction: column;
-    max-width: 320px;
-    width: 100%;
-    margin: 0 auto;
-    margin-top: 20px;
-    .video__comment {
-      padding: 10px;
-      border-radius: 9999px;
-      background-color: white;
-      color: black;
-      margin-bottom: 10px;
+    .comment__text {
+      font-size: 16px;
+      margin-left: 48px;
+    }
+    .delete__comment {
+      margin-left: 8px;
+      cursor: default;
     }
   }
+}

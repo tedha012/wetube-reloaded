@@ -1,21 +1,46 @@
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
+const comments = document.getElementsByClassName("video__comment");
 
-const addComment = (text, id) => {
+const addComment = (text, newCommentInfo) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
-  newComment.dataset.id = id;
   newComment.className = "video__comment";
-  const icon = document.createElement("i");
-  icon.className = "fas fa-comment";
-  const span = document.createElement("span");
-  span.innerText = ` ${text}`;
-  const span2 = document.createElement("span");
-  span2.innerText = "❌";
-  newComment.appendChild(icon);
-  newComment.appendChild(span);
-  newComment.appendChild(span2);
+  newComment.dataset.id = newCommentInfo.newCommentId;
+
+  const commentUserInfo = document.createElement("div");
+  commentUserInfo.className = "comment__userInfo";
+  const commentUserAvatar = document.createElement("img");
+  commentUserAvatar.className = "comment__userAvatar";
+  commentUserAvatar.src = `/${newCommentInfo.ownerAvatar}`;
+  const commentUsername = document.createElement("span");
+  commentUsername.className = "comment__userName";
+  commentUsername.innerText = newCommentInfo.ownerName;
+  const commentDate = document.createElement("span");
+  commentDate.className = "comment__date";
+  commentDate.innerText = newCommentInfo.newCommentCreatedAt;
+  commentUserInfo.appendChild(commentUserAvatar);
+  commentUserInfo.appendChild(commentUsername);
+  commentUserInfo.appendChild(commentDate);
+
+  const textDiv = document.createElement("div");
+  const commentText = document.createElement("span");
+  commentText.className = "comment__text";
+  commentText.innerText = ` ${text}`;
+  const deleteBtn = document.createElement("span");
+  deleteBtn.className = "delete__comment";
+  deleteBtn.innerText = " ❌";
+  deleteBtn.addEventListener("click", (event) => handelDelete(event));
+  textDiv.appendChild(commentText);
+  textDiv.appendChild(deleteBtn);
+
+  newComment.appendChild(commentUserInfo);
+  newComment.appendChild(textDiv);
   videoComments.prepend(newComment);
+};
+
+const deleteComment = (commentElement) => {
+  commentElement.remove();
 };
 
 const handleSubmit = async (event) => {
@@ -34,13 +59,34 @@ const handleSubmit = async (event) => {
     },
     body: JSON.stringify({ text }),
   });
-  textarea.value = "";
   if (response.status === 201) {
-    const { newCommentId } = await response.json();
-    addComment(text, newCommentId);
+    textarea.value = "";
+    const newCommentInfo = await response.json();
+    addComment(text, newCommentInfo);
+  }
+};
+
+const handelDelete = async (event) => {
+  const commentElement = event.target.parentElement.parentElement;
+  const commentId = commentElement.dataset.id;
+  const response = await fetch(`/api/comments/${commentId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (response.status === 201) {
+    deleteComment(commentElement);
   }
 };
 
 if (form) {
   form.addEventListener("submit", handleSubmit);
+}
+
+for (let i = 0; i < comments.length; i++) {
+  const deleteButton = comments[i].querySelector(".delete__comment");
+  if (deleteButton) {
+    deleteButton.addEventListener("click", (event) => handelDelete(event));
+  }
 }
