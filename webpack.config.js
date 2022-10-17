@@ -16,7 +16,6 @@ module.exports = {
     }),
   ],
   mode: "development",
-  watch: true,
   output: {
     filename: "js/[name].js", // [name] entry name
     path: path.resolve(__dirname, "assets"),
